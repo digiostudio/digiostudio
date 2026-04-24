@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Digio Studio | World's #1 AI Creative Suite</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: #0a0a0a; color: #ededed; line-height: 1.5; }
+        body::before { content: ''; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(circle at 30% 40%, rgba(168,85,247,0.08), rgba(59,130,246,0.05), transparent 70%); pointer-events: none; z-index: -1; }
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-track { background: #111; }
+        ::-webkit-scrollbar-thumb { background: linear-gradient(135deg, #a855f7, #3b82f6); border-radius: 10px; }
+        .container { max-width: 1400px; margin: 0 auto; padding: 0 40px; }
+
+        .header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; padding: 20px 0; border-bottom: 1px solid rgba(255,255,255,0.06); }
+        .logo-area { display: flex; align-items: center; gap: 12px; }
+        .logo-img { height: 48px; width: auto; }
+        .logo-text { font-size: 28px; font-weight: 800; background: linear-gradient(135deg, #ffffff, #a855f7, #3b82f6); -webkit-background-clip: text; background-clip: text; color: transparent; }
+        .logo-sub { font-size: 11px; color: #6b7280; margin-top: 2px; }
+        .search-bar { display: flex; align-items: center; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 60px; padding: 8px 20px; width: 300px; }
+        .search-bar i { color: #6b7280; margin-right: 10px; }
+        .search-bar input { background: transparent; border: none; color: white; width: 100%; outline: none; }
+        .nav-buttons { display: flex; gap: 16px; }
+        .sign-in { background: transparent; border: 1px solid rgba(255,255,255,0.2); padding: 8px 20px; border-radius: 40px; color: white; cursor: pointer; }
+        .get-started { background: linear-gradient(135deg, #a855f7, #3b82f6); border: none; padding: 8px 24px; border-radius: 40px; color: white; font-weight: 600; cursor: pointer; }
+
+        .ads-banner { background: rgba(255,255,255,0.03); border: 1px dashed rgba(255,255,255,0.1); border-radius: 20px; padding: 16px; text-align: center; margin: 30px 0; color: #9ca3af; font-size: 14px; }
+        .ads-banner span { color: #a855f7; font-weight: 600; }
+
+        .hero { text-align: center; padding: 60px 0 40px; }
+        .hero h1 { font-size: 56px; font-weight: 800; background: linear-gradient(135deg, #fff, #a855f7, #3b82f6); -webkit-background-clip: text; background-clip: text; color: transparent; }
+        .hero p { font-size: 18px; color: #9ca3af; max-width: 650px; margin: 20px auto 0; }
+
+        .premium-banner { background: linear-gradient(135deg, #1a1a2e, #0f0f1a); border: 2px solid #a855f7; border-radius: 40px; padding: 32px; margin: 40px 0; text-align: center; box-shadow: 0 0 30px rgba(168,85,247,0.2); }
+        .premium-banner h2 { font-size: 32px; margin-bottom: 10px; }
+        .subscribe-btn { background: linear-gradient(135deg, #f59e0b, #ef4444); border: none; padding: 14px 40px; border-radius: 50px; font-size: 18px; font-weight: 700; color: white; cursor: pointer; }
+
+        .tools-section { margin: 60px 0 40px; }
+        .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px; flex-wrap: wrap; gap: 15px; }
+        .vip-badge { background: rgba(168,85,247,0.15); border: 1px solid #a855f7; padding: 6px 18px; border-radius: 60px; font-size: 13px; }
+        .coming-soon { background: rgba(255,165,0,0.15); border: 1px solid #f59e0b; padding: 6px 18px; border-radius: 60px; font-size: 13px; color: #f59e0b; }
+        .tools-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 28px; }
+        .tool-card { background: #0f0f15; border: 1px solid rgba(255,255,255,0.06); border-radius: 28px; padding: 32px; cursor: pointer; transition: all 0.3s; }
+        .tool-card:hover { border-color: #a855f7; transform: translateY(-6px); box-shadow: 0 20px 30px -12px rgba(0,0,0,0.5); }
+        .tool-icon { font-size: 44px; margin-bottom: 20px; }
+        .tool-card h3 { font-size: 22px; margin-bottom: 10px; }
+        .tool-card p { color: #9ca3af; font-size: 14px; }
+
+        .workspace { background: #0a0a0f; border-radius: 40px; border: 1px solid rgba(255,255,255,0.06); padding: 40px; margin: 40px 0; display: none; }
+        .workspace.active { display: block; animation: fadeIn 0.3s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px);} to { opacity: 1; transform: translateY(0);} }
+        .back-btn { background: #1a1a1a; border: none; padding: 10px 24px; border-radius: 40px; color: white; margin-bottom: 28px; cursor: pointer; }
+        .form-premium { margin-bottom: 24px; }
+        .form-premium label { color: #a855f7; font-weight: 600; display: block; margin-bottom: 8px; }
+        .form-premium input, .form-premium select, .form-premium textarea { width: 100%; background: #111; border: 1px solid #222; border-radius: 24px; padding: 14px 18px; color: white; }
+        .file-preview { margin-top: 10px; border-radius: 16px; overflow: hidden; max-width: 300px; }
+        .file-preview img, .file-preview video { width: 100%; border-radius: 16px; }
+        .gen-btn { background: linear-gradient(95deg, #a855f7, #3b82f6); padding: 14px 32px; border-radius: 40px; border: none; color: white; font-weight: 700; cursor: pointer; }
+        .preview-block { background: #0f0f15; border-radius: 28px; padding: 28px; margin-top: 24px; text-align: center; border: 1px dashed #333; }
+        .download-btn { background: #10b981; padding: 12px 28px; border-radius: 40px; border: none; color: white; margin-top: 20px; cursor: pointer; }
+        .earn-card { background: linear-gradient(135deg, #1a2a1a, #0f1a0f); border: 1px solid #10b981; border-radius: 28px; padding: 28px; margin-top: 20px; }
+
+        .footer { border-top: 1px solid rgba(255,255,255,0.06); padding: 50px 0 40px; margin-top: 50px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 40px; }
+        .footer-col a { color: #9ca3af; text-decoration: none; display: block; margin: 8px 0; }
+        .social-icons i { font-size: 20px; margin-right: 18px; color: #6b7280; }
+        .copyright { text-align: center; padding: 20px 0; color: #4b5563; font-size: 12px; border-top: 1px solid rgba(255,255,255,0.04); }
+
+        .payment-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 1000; justify-content: center; align-items: center; }
+        .payment-card { background: #1a1a2e; border-radius: 32px; padding: 40px; max-width: 450px; width: 90%; border: 1px solid #a855f7; }
+        .payment-card input { width: 100%; padding: 14px; margin: 15px 0; background: #111; border: 1px solid #333; border-radius: 24px; color: white; }
+        .payment-submit { background: #10b981; padding: 14px; border-radius: 40px; border: none; color: white; font-weight: 700; width: 100%; cursor: pointer; }
+
+        @media (max-width: 800px) { .container { padding: 0 20px; } .hero h1 { font-size: 36px; } .header { flex-direction: column; } }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <div class="logo-area">
+            <img src="logo.png" alt="Digio" class="logo-img" onerror="this.style.display='none'">
+            <div><div class="logo-text">DIGIO</div><div class="logo-sub">by JANNAT GROUP</div></div>
+        </div>
+        <div class="search-bar"><i class="fas fa-search"></i><input type="text" placeholder="Search 100+ AI tools..."></div>
+        <div class="nav-buttons"><button class="sign-in">Sign In</button><button class="get-started">Get Started</button></div>
+    </div>
+
+    <div class="ads-banner"><i class="fas fa-ad"></i> <span>ADVERTISEMENT</span> — Your Company Ads Space Here (728x90)</div>
+
+    <div class="hero"><h1>Engineering the Future of AI</h1><p>Build high-fidelity video, audio, and images with the world's most advanced AI architecture.</p></div>
+
+    <div class="premium-banner" id="premiumTextToVideo">
+        <h2>🎬 Text to Full AI Video <span style="background:#f59e0b; padding:4px 12px; border-radius:30px; font-size:14px;">PREMIUM</span></h2>
+        <p>Any text → 2D Cartoon / Anime | Auto BGM + Voice | Subscription required</p>
+        <button class="subscribe-btn" id="subscribeNowBtn">⭐ Subscribe — 999tk/month ⭐</button>
+    </div>
+
+    <div class="tools-section">
+        <div class="section-header"><h2><i class="fas fa-compass"></i> Tool Explorer (100+)</h2><div class="vip-badge"><i class="fas fa-crown"></i> VIP ACCESS</div></div>
+        <div class="tools-grid" id="toolsGrid">
+            <div class="tool-card" data-tool="dubbing"><div class="tool-icon">🎬</div><h3>Video Dubbing</h3><p>Auto original → 12+ languages | 180 minutes max</p></div>
+            <div class="tool-card" data-tool="text2img"><div class="tool-icon">🎨</div><h3>Text to Image</h3><p>4K, PNG/JPG, any ratio</p></div>
+            <div class="tool-card" data-tool="img2vid"><div class="tool-icon">🎥</div><h3>Image to Video</h3><p>Text → Auto Voice+Music+Video | Ratio+Res+Duration</p></div>
+            <div class="tool-card" data-tool="tts"><div class="tool-icon">🗣️</div><h3>Text to Voice</h3><p>10+ languages, Male/Female</p></div>
+            <div class="tool-card" data-tool="song"><div class="tool-icon">🎵</div><h3>Text to Song</h3><p>Male/Female vocals | Up to 5 minutes</p></div>
+            <div class="tool-card" data-tool="upscale"><div class="tool-icon">⚡</div><h3>AI Upscale</h3><p>Enhance to 4K/8K + Ratio option</p></div>
+        </div>
+
+        <div class="section-header" style="margin-top: 30px;"><h2><i class="fas fa-clock"></i> Coming Soon</h2><div class="coming-soon"><i class="fas fa-star"></i> More Tools</div></div>
+        <div class="tools-grid">
+            <div class="tool-card" style="opacity:0.7; cursor:default;"><div class="tool-icon">🤖</div><h3>AI Avatar</h3><p>Coming Soon</p></div>
+            <div class="tool-card" style="opacity:0.7; cursor:default;"><div class="tool-icon">🎙️</div><h3>Podcast AI</h3><p>Coming Soon</p></div>
+            <div class="tool-card" id="earnMoneyCard"><div class="tool-icon">💰</div><h3>Earn Money Easy</h3><p>Subscription signup & Affiliate Marketing</p></div>
+        </div>
+    </div>
+
+    <div id="workspace" class="workspace"><button class="back-btn" id="backBtn"><i class="fas fa-arrow-left"></i> Back to Tools</button><div id="toolContent"></div></div>
+
+    <div class="footer">
+        <div class="footer-col"><strong>Digio Studio</strong><p>Production-ready AI infrastructure</p></div>
+        <div class="footer-col"><strong>Resources</strong><a href="#">API Docs</a><a href="#">System Status</a></div>
+        <div class="footer-col"><strong>Company</strong><a href="#">A PRODUCT OF JANNAT GROUP</a><div class="social-icons"><i class="fab fa-twitter"></i><i class="fab fa-github"></i><i class="fab fa-linkedin-in"></i></div></div>
+    </div>
+    <div class="copyright">© 2026 DIGIO STUDIO. ALL RIGHTS RESERVED.</div>
+</div>
+
+<div id="paymentModal" class="payment-modal">
+    <div class="payment-card">
+        <h2><i class="fas fa-credit-card"></i> Premium Subscription</h2>
+        <p style="margin:10px 0;">Send 999tk to <strong style="color:#10b981;">01785563869</strong> (bKash/Nagad)</p>
+        <p style="font-size:12px; color:#9ca3af;">Enter transaction ID</p>
+        <input type="text" id="transactionId" placeholder="Transaction ID">
+        <button class="payment-submit" id="verifyPaymentBtn">Verify & Activate</button>
+        <button id="closePaymentBtn" style="margin-top:10px; background:#333; padding:10px; border-radius:40px; width:100%; border:none; color:white; cursor:pointer;">Cancel</button>
+    </div>
+</div>
+
+<script>
+    let isSubscribed = localStorage.getItem('digio_premium') === 'true';
+    let currentBlob = null;
+    let currentType = 'image';
+    const toolsGrid = document.getElementById('toolsGrid');
+    const workspace = document.getElementById('workspace');
+    const toolContent = document.getElementById('toolContent');
+    const backBtn = document.getElementById('backBtn');
+    const paymentModal = document.getElementById('paymentModal');
+
+    function showTool(toolId) {
+        toolsGrid.style.display = 'none';
+        workspace.classList.add('active');
+        if (toolId === 'dubbing') renderDubbing();
+        else if (toolId === 'text2img') renderText2Image();
+        else if (toolId === 'img2vid') renderImgToVideo();
+        else if (toolId === 'tts') renderTTS();
+        else if (toolId === 'song') renderSong();
+        else if (toolId === 'upscale') renderUpscale();
+    }
+
+    function simulatePreview(containerId, type, msg) {
+        const div = document.getElementById(containerId);
+        if (div) {
+            div.innerHTML = `<div style="padding:20px;"><i class="fas fa-spinner fa-pulse"></i> ${msg}...</div>`;
+            setTimeout(() => {
+                if (type === 'image') div.innerHTML = `<img src="https://placehold.co/1024x768/1a1a3a/a855f7?text=DIGIO+AI" style="max-width:100%; border-radius:24px;">`;
+                else if (type === 'video') div.innerHTML = `<video controls style="max-width:100%; border-radius:24px;"><source src="https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4" type="video/mp4"></video>`;
+                else div.innerHTML = `<audio controls style="width:100%;"><source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg"></audio>`;
+                currentBlob = new Blob(["dummy"], {type: type==='image'?'image/png': type==='video'?'video/mp4':'audio/mpeg'});
+                currentType = type;
+            }, 1500);
+        }
+    }
+
+    function downloadWithAd() {
+        if (!currentBlob) { alert("Generate first!"); return; }
+        if (confirm("🎬 Watch 5s ad to download?")) {
+            alert("✅ Ad done! Downloading...");
+            let ext = currentType === 'image' ? 'png' : (currentType === 'video' ? 'mp4' : 'mp3');
+            let a = document.createElement('a');
+            a.href = URL.createObjectURL(currentBlob);
+            a.download = `digio_creation.${ext}`;
+            a.click();
+            URL.revokeObjectURL(a.href);
+        }
+    }
+
+    // Video Dubbing - 180 minutes max
+    function renderDubbing() {
+        toolContent.innerHTML = `
+            <h2><i class="fas fa-film"></i> AI Video Dubbing (180 minutes max)</h2>
+            <div class="form-premium"><label>📹 Upload Video (up to 180 min)</label><input type="file" id="dubFile" accept="video/*"></div>
+            <div id="dubPreviewFile" class="file-preview"></div>
+            <div class="form-premium"><label>🎤 Original (Auto)</label><input value="Auto Detected" readonly style="background:#1a1a2e;"></div>
+            <div class="form-premium"><label>🌍 Target Language</label><select id="targetLang"><option>Bangla</option><option>Hindi</option><option>English</option><option>Tamil</option><option>Urdu</option><option>Arabic</option><option>Chinese</option><option>Japanese</option><option>Korean</option><option>French</option><option>German</option><option>Spanish</option></select></div>
+            <div class="form-premium"><label>📐 Ratio</label><select><option>16:9</option><option>1:1</option><option>4:5</option><option>9:16</option></select></div>
+            <div class="form-premium"><label>⚡ Resolution</label><select><option>720p</option><option>1080p</option><option>2K</option><option>4K</option></select></div>
+            <button class="gen-btn" id="dubGen">Generate Dubbed Video</button>
+            <div id="dubPrev" class="preview-block">Dubbed video here</div>
+            <button class="download-btn" id="dubDown">Watch Ad & Download</button>
+        `;
+        document.getElementById('dubFile').onchange = (e) => { if(e.target.files[0]) document.getElementById('dubPreviewFile').innerHTML = `<video controls style="width:100%"><source src="${URL.createObjectURL(e.target.files[0])}"></video>`; };
+        document.getElementById('dubGen').onclick = () => { const t = document.getElementById('targetLang').value; simulatePreview('dubPrev','video',`Dubbing to ${t} (up to 180 min)`); };
+        document.getElementById('dubDown').onclick = downloadWithAd;
+    }
+
+    function renderText2Image() {
+        toolContent.innerHTML = `<h2>🎨 Text to Image</h2>
+            <div class="form-premium"><label>Prompt</label><textarea id="prompt" rows="2">A futuristic city, neon, 4K</textarea></div>
+            <div class="form-premium"><label>Ratio</label><select><option>16:9</option><option>1:1</option><option>4:5</option><option>9:16</option></select></div>
+            <div class="form-premium"><label>Resolution</label><select><option>HD</option><option>2K</option><option>4K</option></select></div>
+            <div class="form-premium"><label>Format</label><select><option>PNG</option><option>JPG</option></select></div>
+            <button class="gen-btn" id="imgGen">Generate</button><div id="imgPrev" class="preview-block">Image here</div>
+            <button class="download-btn" id="imgDown">Watch Ad & Download</button>`;
+        document.getElementById('imgGen').onclick = () => simulatePreview('imgPrev','image','Creating image');
+        document.getElementById('imgDown').onclick = downloadWithAd;
+    }
+
+    // Image to Video with Text → Auto Voice+Music+Video
+    function renderImgToVideo() {
+        toolContent.innerHTML = `
+            <h2>🎥 Image to Video (Text → Auto Voice+Music+Video)</h2>
+            <div class="form-premium"><label>🖼️ Upload Image</label><input type="file" id="img2vidFile" accept="image/*"></div>
+            <div id="img2vidPreview" class="file-preview"></div>
+            <div class="form-premium"><label>📝 Text / Story</label><textarea id="vidText" rows="3">A beautiful journey through magical mountains</textarea></div>
+            <div class="form-premium"><label>📐 Ratio</label><select><option>16:9</option><option>1:1</option><option>4:5</option><option>9:16</option></select></div>
+            <div class="form-premium"><label>⚡ Resolution</label><select><option>720p</option><option>1080p</option><option>2K</option><option>4K</option></select></div>
+            <div class="form-premium"><label>⏱️ Duration</label><select><option>3s</option><option>5s</option><option>10s</option><option>15s</option><option>30s</option><option>60s</option></select></div>
+            <button class="gen-btn" id="vidGen">Generate Video</button>
+            <div id="vidPrev" class="preview-block">Cinematic video with auto voice+music</div>
+            <button class="download-btn" id="vidDown">Watch Ad & Download</button>
+        `;
+        document.getElementById('img2vidFile').onchange = (e) => { if(e.target.files[0]) document.getElementById('img2vidPreview').innerHTML = `<img src="${URL.createObjectURL(e.target.files[0])}" style="width:100%">`; };
+        document.getElementById('vidGen').onclick = () => { const txt = document.getElementById('vidText').value.substring(0,50); simulatePreview('vidPrev','video',`Creating video from: "${txt}"`); };
+        document.getElementById('vidDown').onclick = downloadWithAd;
+    }
+
+    function renderTTS() {
+        toolContent.innerHTML = `<h2>🗣️ Text to Voice</h2>
+            <div class="form-premium"><label>Text</label><textarea rows="2">Hello Digio</textarea></div>
+            <div class="form-premium"><label>Language</label><select><option>English</option><option>Hindi</option><option>Bangla</option><option>Tamil</option></select></div>
+            <div class="form-premium"><label>Voice</label><select><option>Male</option><option>Female</option></select></div>
+            <button class="gen-btn" id="ttsGen">Generate</button><div id="ttsPrev" class="preview-block">Audio</div>
+            <button class="download-btn" id="ttsDown">Watch Ad & Download</button>`;
+        document.getElementById('ttsGen').onclick = () => simulatePreview('ttsPrev','audio','Generating voice');
+        document.getElementById('ttsDown').onclick = downloadWithAd;
+    }
+
+    // Text to Song - Up to 5 minutes
+    function renderSong() {
+        toolContent.innerHTML = `<h2>🎵 Text to Song (Up to 5 minutes)</h2>
+            <div class="form-premium"><label>Lyrics</label><textarea rows="2">Happy kids song about stars</textarea></div>
+            <div class="form-premium"><label>Genre</label><select><option>Kids</option><option>Pop</option><option>Romantic</option><option>Rock</option></select></div>
+            <div class="form-premium"><label>Vocals</label><select><option>Male</option><option>Female</option></select></div>
+            <div class="form-premium"><label>Duration</label><select id="songDur"><option>30s</option><option>1min</option><option>2min</option><option>3min</option><option>4min</option><option>5min</option></select></div>
+            <button class="gen-btn" id="songGen">Generate</button><div id="songPrev" class="preview-block">Song preview</div>
+            <button class="download-btn" id="songDown">Watch Ad & Download</button>`;
+        document.getElementById('songGen').onclick = () => { const d = document.getElementById('songDur').value; simulatePreview('songPrev','audio',`Creating ${d} song`); };
+        document.getElementById('songDown').onclick = downloadWithAd;
+    }
+
+    function renderUpscale() {
+        toolContent.innerHTML = `<h2>⚡ AI Upscale</h2>
+            <div class="form-premium"><label>Upload Image</label><input type="file" accept="image/*"></div>
+            <div class="form-premium"><label>Ratio</label><select><option>16:9</option><option>1:1</option><option>4:5</option></select></div>
+            <div class="form-premium"><label>Factor</label><select><option>2x (4K)</option><option>4x (8K)</option></select></div>
+            <button class="gen-btn" id="upGen">Upscale</button><div id="upPrev" class="preview-block">Upscaled</div>
+            <button class="download-btn" id="upDown">Watch Ad & Download</button>`;
+        document.getElementById('upGen').onclick = () => simulatePreview('upPrev','image','Upscaling');
+        document.getElementById('upDown').onclick = downloadWithAd;
+    }
+
+    // Earn Money Easy - Subscription signup + JANNAT TECH Affiliate
+    function renderEarnMoney() {
+        toolsGrid.style.display = 'none';
+        workspace.classList.add('active');
+        toolContent.innerHTML = `
+            <h2><i class="fas fa-money-bill-wave"></i> Earn Money Easy</h2>
+            <div class="earn-card">
+                <h3 style="color:#10b981;">💰 Earn with Digio & JANNAT TECH</h3>
+                <div style="margin: 20px 0; padding: 15px; background:#111; border-radius:20px;">
+                    <p><i class="fas fa-users"></i> <strong>1. Subscription Signup</strong> - Earn 200tk for every premium subscription you refer</p>
+                    <p><i class="fas fa-link"></i> <strong>2. JANNAT TECH Affiliate Marketing</strong> - Sell products from JANNAT TECH website & earn 30% commission</p>
+                    <p><i class="fas fa-gift"></i> <strong>3. Referral Bonus</strong> - Invite friends to Digio, earn 100tk per signup</p>
+                    <p><i class="fas fa-video"></i> <strong>4. Content Creation</strong> - Make videos using Digio tools & monetize on YouTube/Facebook</p>
+                </div>
+                <div style="background:#1a2a1a; padding:20px; border-radius:20px; text-align:center;">
+                    <p style="color:#10b981;">📱 <strong>Join Our Community</strong></p>
+                    <a href="https://jannattech.com/affiliate" target="_blank" style="display:inline-block; background:#a855f7; padding:12px 25px; border-radius:40px; margin:10px; color:white; text-decoration:none;"><i class="fas fa-store"></i> JANNAT TECH Affiliate</a>
+                    <p style="margin-top:15px;">📞 Support: <strong>01928788471</strong> (WhatsApp/Phone)</p>
+                    <p style="margin-top:10px; font-size:12px;">For affiliate registration & payout details, contact support</p>
+                </div>
+            </div>
+            <button class="download-btn" style="margin-top:20px;" onclick="alert('Start earning today! Contact 01928788471 for affiliate registration.')">Start Earning Now</button>
+        `;
+    }
+
+    // Premium Text to Full AI Video
+    function renderPremiumTextToVideo() {
+        if (!isSubscribed) { alert("Premium required! Pay 999tk/month"); paymentModal.style.display = 'flex'; return; }
+        toolsGrid.style.display = 'none';
+        workspace.classList.add('active');
+        toolContent.innerHTML = `
+            <h2>🎬 Text to Full AI Video (2D Cartoon / Anime)</h2>
+            <div class="form-premium"><label>Story</label><textarea id="storyText" rows="4">A little bear exploring a magical forest</textarea></div>
+            <div class="form-premium"><label>Character Image</label><input type="file" id="charImage" accept="image/*"></div>
+            <div class="form-premium"><label>Style</label><select id="style"><option>2D Cartoon</option><option>Anime</option></select></div>
+            <div class="form-premium"><label>Duration</label><select><option>30s</option><option>1min</option><option>2min</option><option>5min</option></select></div>
+            <div class="form-premium"><label>BGM</label><select><option>Auto</option><option>Happy</option><option>Emotional</option></select></div>
+            <button class="gen-btn" id="premiumGen">Generate</button><div id="premiumPrev" class="preview-block">Premium video</div>
+            <button class="download-btn" id="premiumDown">Download (No Ad)</button>`;
+        document.getElementById('premiumGen').onclick = () => simulatePreview('premiumPrev','video','Generating premium video');
+        document.getElementById('premiumDown').onclick = () => { if(currentBlob){ let a=document.createElement('a'); a.href=URL.createObjectURL(currentBlob); a.download='premium_video.mp4'; a.click(); } else alert("Generate first!"); };
+    }
+
+    document.getElementById('subscribeNowBtn').onclick = () => paymentModal.style.display = 'flex';
+    document.getElementById('closePaymentBtn').onclick = () => paymentModal.style.display = 'none';
+    document.getElementById('verifyPaymentBtn').onclick = () => {
+        let txid = document.getElementById('transactionId').value.trim();
+        if (!txid) { alert("Enter transaction ID"); return; }
+        alert(`✅ Activated! Transaction: ${txid}`);
+        localStorage.setItem('digio_premium', 'true');
+        isSubscribed = true;
+        paymentModal.style.display = 'none';
+        renderPremiumTextToVideo();
+    };
+
+    document.querySelectorAll('.tool-card').forEach(c => { c.addEventListener('click', () => { if(c.dataset.tool) showTool(c.dataset.tool); }); });
+    document.getElementById('earnMoneyCard').addEventListener('click', renderEarnMoney);
+    backBtn.onclick = () => { workspace.classList.remove('active'); toolsGrid.style.display = 'grid'; };
+    if (isSubscribed) document.getElementById('subscribeNowBtn').innerHTML = "⭐ Premium Active ⭐";
+</script>
+</body>
+</html>
